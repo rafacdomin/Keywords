@@ -1,18 +1,12 @@
 import React from 'react'
-import { Keyboard } from './components/Keyboard'
+import Home from './pages/Home'
+import GlobalStyle from './styles/global'
 
 function App() {
 	return (
 		<>
-			<header></header>
-
-			<main>
-				<section className="notification"></section>
-				<section className="words"></section>
-				<section className="keyboard">
-					<Keyboard />
-				</section>
-			</main>
+			<GlobalStyle />
+			<Home />
 		</>
 	)
 }

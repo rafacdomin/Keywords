@@ -10,7 +10,11 @@ function Home() {
 				<section className="notification"></section>
 				<section className="words"></section>
 				<section className="keyboard">
-					<Keyboard />
+					<Keyboard
+						handleClick={key => {
+							console.log(key)
+						}}
+					/>
 				</section>
 			</main>
 		</>

@@ -1,10 +1,5 @@
 import styled from 'styled-components'
 
-export const KeyboardContainer = styled.main`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-`
 export const Key = styled.button`
 	display: flex;
 	justify-content: center;
@@ -14,6 +9,7 @@ export const Key = styled.button`
 	font-size: 1.8rem;
 	font-weight: bold;
 	color: white;
+	text-transform: uppercase;
 
 	border: none;
 	border-radius: 0.8rem;

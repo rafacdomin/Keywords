@@ -2,27 +2,27 @@ import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 
 import { ReactComponent as BackSVG } from '../../assets/backspace-icon.svg'
-import { KeyboardContainer, KeyLine, Key, Space } from './styles'
+import { KeyLine, Key, Space } from './styles'
 
 const keys = [
 	['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
-	['SPACE', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'BACK'],
-	['SPACE', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'ENTER'],
+	['Space', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Backspace'],
+	['Space', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'Enter'],
 ]
 
 export const Keyboard = ({ handleClick }) => {
 	const KeyLines = useCallback(() => {
 		return keys.map(keyLine => (
 			<KeyLine key={keyLine}>
-				{keyLine.map(key =>
-					key === 'SPACE' ? (
-						<Space key={key} />
+				{keyLine.map((key, idx) =>
+					key === 'Space' ? (
+						<Space key={`${key}_${idx}`} />
 					) : (
 						<Key
-							key={key}
-							large={key === 'ENTER'}
-							onClick={() => handleClick(key)}>
-							{key === 'BACK' ? <BackSVG /> : key}
+							key={`${key}_${idx}`}
+							large={key === 'Enter'}
+							onClick={() => handleClick({ key })}>
+							{key === 'Backspace' ? <BackSVG /> : key}
 						</Key>
 					),
 				)}
@@ -30,11 +30,7 @@ export const Keyboard = ({ handleClick }) => {
 		))
 	}, [keys])
 
-	return (
-		<KeyboardContainer>
-			<KeyLines />
-		</KeyboardContainer>
-	)
+	return <KeyLines />
 }
 
 Keyboard.propTypes = {

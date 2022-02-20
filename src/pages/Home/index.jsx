@@ -1,24 +1,25 @@
 import React from 'react'
 import { Keyboard } from '../../components/Keyboard'
 import { Words } from '../../components/Words'
+import { KeyboardSection, WordsSection } from './styles'
 
 function Home() {
+	const handleKeyDown = event => {
+		console.log(event)
+	}
+
 	return (
 		<>
 			<header></header>
 
 			<main>
 				<section className="notification"></section>
-				<section className="words">
+				<WordsSection>
 					<Words />
-				</section>
-				<section className="keyboard">
-					<Keyboard
-						handleClick={key => {
-							console.log(key)
-						}}
-					/>
-				</section>
+				</WordsSection>
+				<KeyboardSection>
+					<Keyboard handleClick={handleKeyDown} />
+				</KeyboardSection>
 			</main>
 		</>
 	)

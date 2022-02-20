@@ -1,12 +1,12 @@
 import styled from 'styled-components'
 
-export const KeyboardSection = styled.section`
+export const Main = styled.main`
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-`
-
-export const WordsSection = styled.section`
-	display: flex;
 	justify-content: center;
+	align-items: center;
+
+	> section + section {
+		margin-top: 2.4rem;
+	}
 `

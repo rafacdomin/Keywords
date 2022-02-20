@@ -9,7 +9,7 @@ export const Container = styled.main`
 
 export const Letter = styled.span`
 	border: 2px solid
-		${props => (props.correct || props.wrong ? 'transparent' : 'grey')};
+		${props => (props.correct || props.wrong ? 'transparent' : 'var(--grey)')};
 	border-radius: 0.4rem;
 	display: flex;
 	align-items: center;
@@ -20,8 +20,7 @@ export const Letter = styled.span`
 	font-weight: 700;
 	text-transform: uppercase;
 
-	background-color: ${props =>
-		props.wrong ? 'rgba(255, 255, 255, 0.04)' : ''};
-	background-color: ${props => (props.correct ? '#538d4e' : '')};
-	background-color: ${props => (props.present ? '#b59f3b' : '')};
+	background-color: ${props => (props.wrong ? 'var(--wrong)' : '')};
+	background-color: ${props => (props.correct ? 'var(--correct)' : '')};
+	background-color: ${props => (props.present ? 'var(--present)' : '')};
 `

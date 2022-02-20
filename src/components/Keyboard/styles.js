@@ -5,7 +5,11 @@ export const Key = styled.button`
 	justify-content: center;
 	align-items: center;
 
-	background-color: rgba(0, 0, 0, 0.4);
+	background-color: ${props =>
+		props.present ? 'var(--present)' : 'rgba(0, 0, 0, 0.3)'};
+	background-color: ${props =>
+		props.correct ? 'var(--correct)' : 'rgba(0, 0, 0, 0.3)'};
+
 	font-size: 1.8rem;
 	font-weight: bold;
 	color: white;
@@ -13,15 +17,15 @@ export const Key = styled.button`
 
 	border: none;
 	border-radius: 0.8rem;
-	width: ${props => (props.large ? '14rem' : '6rem')};
-	height: 7rem;
+	width: ${props => (props.large ? '12rem' : '5.5rem')};
+	height: 6rem;
 
 	cursor: pointer;
 
 	transition: all 0.2s;
 
 	& + button {
-		margin-left: 0.8rem;
+		margin-left: 0.6rem;
 	}
 
 	&:active {
@@ -37,7 +41,7 @@ export const KeyLine = styled.section`
 	display: flex;
 
 	& + section {
-		margin-top: 0.8rem;
+		margin-top: 0.6rem;
 	}
 `
 

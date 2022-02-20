@@ -7,7 +7,7 @@ import { KeyLine, Key, Space } from './styles'
 const keys = [
 	['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
 	['Space', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Backspace'],
-	['Space', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'Enter'],
+	['Space', 'Space', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'Enter'],
 ]
 
 export const Keyboard = ({ handleClick }) => {

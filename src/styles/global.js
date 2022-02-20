@@ -8,11 +8,14 @@ export default createGlobalStyle`
     --dark: #1E2140;
     --black: #000000;
     --white: #FFFFFF;
-    --grey: #999999;
+    --grey: #777777;
     --light: #D9E1FB;
     --red: #F97074;
     --blue: #6CF3FA;
     --lavender: #E4B7E5;
+		--correct: #538d4e;
+		--present: #b59f3b;
+		--wrong: rgba(255, 255, 255, 0.04)
   }
 
   * {

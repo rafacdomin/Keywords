@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Keyboard } from '../../components/Keyboard'
 import { Words } from '../../components/Words'
-import { KeyboardSection, WordsSection } from './styles'
+import { Main } from './styles'
 
 const availableKeys = [
 	'Q',
@@ -42,6 +42,10 @@ function Home() {
 			return event.preventDefault()
 		}
 
+		if (event.shiftKey || event.ctrlKey) {
+			return
+		}
+
 		const keyExists = availableKeys.find(key => key === event.key.toUpperCase())
 		if (keyExists) {
 			setPressedKey(state =>
@@ -62,15 +66,15 @@ function Home() {
 		<>
 			<header></header>
 
-			<main>
+			<Main>
 				<section className="notification"></section>
-				<WordsSection>
+				<section>
 					<Words pressedKey={pressedKey} />
-				</WordsSection>
-				<KeyboardSection>
+				</section>
+				<section>
 					<Keyboard handleClick={handleKeyDown} />
-				</KeyboardSection>
-			</main>
+				</section>
+			</Main>
 		</>
 	)
 }

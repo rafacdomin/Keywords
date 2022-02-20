@@ -10,6 +10,7 @@ export const Container = styled.main`
 export const Letter = styled.span`
 	border: 2px solid
 		${props => (props.correct || props.wrong ? 'transparent' : 'grey')};
+	border-radius: 0.4rem;
 	display: flex;
 	align-items: center;
 	justify-content: center;

@@ -5,10 +5,10 @@ export const Key = styled.button`
 	justify-content: center;
 	align-items: center;
 
-	background-color: ${props =>
-		props.present ? 'var(--present)' : 'rgba(0, 0, 0, 0.3)'};
-	background-color: ${props =>
-		props.correct ? 'var(--correct)' : 'rgba(0, 0, 0, 0.3)'};
+	background-color: rgba(0, 0, 0, 0.3);
+	background-color: ${props => props.wrong && 'var(--wrong)'};
+	background-color: ${props => props.present && 'var(--present)'};
+	background-color: ${props => props.correct && 'var(--correct)'};
 
 	font-size: 1.8rem;
 	font-weight: bold;

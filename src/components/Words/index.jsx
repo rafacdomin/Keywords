@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { Container, Letter } from './styles'
+import { useLetter } from '../../hooks/Letters'
 
 export const Words = ({ pressedKey }) => {
+	const { wrongLetters, setWrong, setCorrect, setPresent } = useLetter()
 	const [dailyWord] = useState('arara')
-	const [wrongLetters, setWrong] = useState([])
 	const [wordCount, setWordCount] = useState(0)
 	const [letterCount, setLetterCount] = useState(0)
 	const [results, setResults] = useState([])
@@ -20,20 +21,21 @@ export const Words = ({ pressedKey }) => {
 	const testWord = useCallback(
 		word => {
 			const letters = word.split('')
-			const dailyLetters = dailyWord.split('')
-			const wrong = wrongLetters
+			const dailyLetters = dailyWord.toUpperCase().split('')
 			const result = []
 
 			for (let i = 0; i < dailyLetters.length; i++) {
 				if (letters[i] === dailyLetters[i]) {
 					result[i] = 'correct'
 					dailyLetters[i] = null
+					setCorrect(state => [...state, letters[i]])
 				} else if (dailyLetters.includes(letters[i])) {
 					result[i] = 'present'
+					setPresent(state => [...state, letters[i]])
 				} else {
 					result[i] = 'wrong'
-					if (!wrong.includes(letters[i])) {
-						wrong.push(letters[i])
+					if (!wrongLetters.includes(letters[i])) {
+						setWrong(state => [...state, letters[i]])
 					}
 				}
 			}
@@ -42,7 +44,6 @@ export const Words = ({ pressedKey }) => {
 				state[wordCount] = result
 				return state
 			})
-			setWrong(wrong)
 
 			if (
 				!dailyWord.localeCompare(word, 'pt-br', {
@@ -92,15 +93,15 @@ export const Words = ({ pressedKey }) => {
 
 	useEffect(() => {
 		if (pressedKey) {
-			const key = pressedKey.includes('Repeat')
+			const key = pressedKey.includes('REPEAT')
 				? pressedKey.split('_')[1]
 				: pressedKey
 
 			switch (key) {
-				case 'Enter':
+				case 'ENTER':
 					handleEnter()
 					break
-				case 'Backspace':
+				case 'BACKSPACE':
 					handleBackSpace()
 					break
 				default:

@@ -49,7 +49,9 @@ function Home() {
 		const keyExists = availableKeys.find(key => key === event.key.toUpperCase())
 		if (keyExists) {
 			setPressedKey(state =>
-				state === event.key ? `Repeat_${event.key}` : event.key,
+				state === event.key.toUpperCase()
+					? `REPEAT_${event.key.toUpperCase()}`
+					: event.key.toUpperCase(),
 			)
 		}
 	}, [])

@@ -15,7 +15,7 @@ export default createGlobalStyle`
     --lavender: #E4B7E5;
 		--correct: #538d4e;
 		--present: #b59f3b;
-		--wrong: rgba(255, 255, 255, 0.04)
+		--wrong: rgba(255, 255, 255, 0.1)
   }
 
   * {

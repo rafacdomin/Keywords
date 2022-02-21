@@ -9,7 +9,10 @@ export const Container = styled.main`
 
 export const Letter = styled.span`
 	border: 2px solid
-		${props => (props.correct || props.wrong ? 'transparent' : 'var(--grey)')};
+		${props =>
+			props.correct || props.present || props.wrong
+				? 'transparent'
+				: 'var(--grey)'};
 	border-radius: 0.4rem;
 	display: flex;
 	align-items: center;

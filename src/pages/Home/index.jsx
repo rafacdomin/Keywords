@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Keyboard } from '../../components/Keyboard'
-import { Words } from '../../components/Words'
+import { Keyboard } from 'components/Keyboard'
+import { Words } from 'components/Words'
 import { Main } from './styles'
 
 const availableKeys = [

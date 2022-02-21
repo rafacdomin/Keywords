@@ -1,7 +1,7 @@
 import React from 'react'
-import { LetterProvider } from './hooks/Letters'
-import Home from './pages/Home'
-import GlobalStyle from './styles/global'
+import { LetterProvider } from 'hooks/Letters'
+import Home from 'pages/Home'
+import GlobalStyle from 'styles/global'
 
 function App() {
 	return (

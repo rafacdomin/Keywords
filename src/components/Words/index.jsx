@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { Container, Letter } from './styles'
-import { useLetter } from '../../hooks/Letters'
+import { useLetter } from 'hooks/Letters'
 
 export const Words = ({ pressedKey }) => {
 	const { wrongLetters, setWrong, setCorrect, setPresent } = useLetter()

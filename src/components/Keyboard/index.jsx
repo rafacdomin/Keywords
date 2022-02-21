@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { ReactComponent as BackSVG } from '../../assets/backspace-icon.svg'
+import { ReactComponent as BackSVG } from 'assets/backspace-icon.svg'
 import { KeyLine, Key, Space } from './styles'
-import { useLetter } from '../../hooks/Letters'
+import { useLetter } from 'hooks/Letters'
 
 const keys = [
 	['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],

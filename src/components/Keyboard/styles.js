@@ -10,14 +10,14 @@ export const Key = styled.button`
 	background-color: ${props => props.present && 'var(--present)'};
 	background-color: ${props => props.correct && 'var(--correct)'};
 
-	font-size: 1.8rem;
+	font-size: 1.6rem;
 	font-weight: bold;
 	color: white;
 	text-transform: uppercase;
 
 	border: none;
 	border-radius: 0.8rem;
-	width: ${props => (props.large ? '12rem' : '5.5rem')};
+	width: ${props => (props.large ? '100%' : '40%')};
 	height: 6rem;
 
 	cursor: pointer;
@@ -25,7 +25,7 @@ export const Key = styled.button`
 	transition: all 0.2s;
 
 	& + button {
-		margin-left: 0.6rem;
+		margin-left: 0.4rem;
 	}
 
 	&:active {
@@ -33,18 +33,45 @@ export const Key = styled.button`
 	}
 
 	svg {
-		width: 3rem;
-		height: 3rem;
+		width: 2rem;
+		height: 2rem;
+	}
+
+	@media (min-width: 768px) {
+		font-size: 1.8rem;
+
+		width: ${props => (props.large ? '12rem' : '5.5rem')};
+		height: 6rem;
+
+		svg {
+			width: 3rem;
+			height: 3rem;
+		}
+
+		& + button {
+			margin-left: 0.6rem;
+		}
 	}
 `
 export const KeyLine = styled.section`
 	display: flex;
+	width: 100%;
 
 	& + section {
-		margin-top: 0.6rem;
+		margin-top: 0.4rem;
+	}
+
+	@media (min-width: 768px) {
+		& + section {
+			margin-top: 0.6rem;
+		}
 	}
 `
 
 export const Space = styled.div`
-	margin-left: 3.2rem;
+	margin-left: 0.8rem;
+
+	@media (min-width: 768px) {
+		margin-left: 3.2rem;
+	}
 `

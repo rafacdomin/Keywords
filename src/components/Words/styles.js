@@ -2,9 +2,14 @@ import styled from 'styled-components'
 
 export const Container = styled.main`
 	display: grid;
-	grid-template-columns: repeat(5, 6rem);
-	grid-template-rows: repeat(6, 6rem);
+	grid-template-columns: repeat(5, 7rem);
+	grid-template-rows: repeat(6, 7rem);
 	gap: 0.6rem 0.6rem;
+
+	@media (min-width: 768px) {
+		grid-template-columns: repeat(5, 6rem);
+		grid-template-rows: repeat(6, 6rem);
+	}
 `
 
 export const Letter = styled.span`

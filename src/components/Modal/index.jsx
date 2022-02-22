@@ -30,7 +30,6 @@ const Modal = ({ isOpen, controlModal, children }) => {
 Modal.propTypes = {
 	isOpen: PropTypes.bool.isRequired,
 	controlModal: PropTypes.func.isRequired,
-	children: PropTypes.node.isRequired,
 }
 
 export { Modal }

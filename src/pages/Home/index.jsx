@@ -1,9 +1,11 @@
 import React from 'react'
+import { useKey } from 'hooks/Keys'
+
 import { Keyboard } from 'components/Keyboard'
 import { Words } from 'components/Words'
 import { Header } from 'components/Header'
+
 import { Main } from './styles'
-import { useKey } from 'hooks/Keys'
 
 function Home() {
 	const { handleKeyDown, pressedKey } = useKey()

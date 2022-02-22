@@ -4,7 +4,8 @@ import { Container, Letter } from './styles'
 import { useLetter } from 'hooks/Letters'
 
 export const Words = ({ pressedKey }) => {
-	const { wrongLetters, setWrong, setCorrect, setPresent } = useLetter()
+	const { wrongLetters, updateWrong, updateCorrect, updatePresent } =
+		useLetter()
 	const [dailyWord] = useState('arara')
 	const [wordCount, setWordCount] = useState(0)
 	const [letterCount, setLetterCount] = useState(0)
@@ -18,6 +19,24 @@ export const Words = ({ pressedKey }) => {
 		['', '', '', '', ''],
 	])
 
+	useEffect(() => {
+		const storagedWords = localStorage.getItem('@Keywords:Words')
+		const storagedResults = localStorage.getItem('@Keywords:Results')
+		const storagedWordCount = localStorage.getItem('@Keywords:WordCount')
+
+		if (storagedWords) {
+			setWords(JSON.parse(storagedWords))
+		}
+
+		if (storagedResults) {
+			setResults(JSON.parse(storagedResults))
+		}
+
+		if (storagedWordCount) {
+			setWordCount(JSON.parse(storagedWordCount))
+		}
+	}, [])
+
 	const testWord = useCallback(
 		word => {
 			const letters = word.split('')
@@ -28,20 +47,21 @@ export const Words = ({ pressedKey }) => {
 				if (letters[i] === dailyLetters[i]) {
 					result[i] = 'correct'
 					dailyLetters[i] = null
-					setCorrect(state => [...state, letters[i]])
+					updateCorrect(letters[i])
 				} else if (dailyLetters.includes(letters[i])) {
 					result[i] = 'present'
-					setPresent(state => [...state, letters[i]])
+					updatePresent(letters[i])
 				} else {
 					result[i] = 'wrong'
 					if (!wrongLetters.includes(letters[i])) {
-						setWrong(state => [...state, letters[i]])
+						updateWrong(letters[i])
 					}
 				}
 			}
 
 			setResults(state => {
 				state[wordCount] = result
+				localStorage.setItem('@Keywords:Results', JSON.stringify(state))
 				return state
 			})
 
@@ -88,8 +108,13 @@ export const Words = ({ pressedKey }) => {
 
 		testWord(words[wordCount].join([]))
 		setLetterCount(0)
-		setWordCount(state => state + 1)
-	}, [letterCount, wordCount])
+		setWordCount(state => {
+			state += 1
+			localStorage.setItem('@Keywords:WordCount', JSON.stringify(state))
+			return state
+		})
+		localStorage.setItem('@Keywords:Words', JSON.stringify(words))
+	}, [letterCount, wordCount, words])
 
 	useEffect(() => {
 		if (pressedKey) {

@@ -1,14 +1,14 @@
 import React from 'react'
-import { LetterProvider } from 'hooks/Letters'
 import Home from 'pages/Home'
 import GlobalStyle from 'styles/global'
+import { CustomProvider } from 'hooks'
 
 function App() {
 	return (
-		<LetterProvider>
+		<CustomProvider>
 			<GlobalStyle />
 			<Home />
-		</LetterProvider>
+		</CustomProvider>
 	)
 }
 

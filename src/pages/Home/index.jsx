@@ -1,69 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React from 'react'
 import { Keyboard } from 'components/Keyboard'
 import { Words } from 'components/Words'
 import { Header } from 'components/Header'
 import { Main } from './styles'
-
-const availableKeys = [
-	'Q',
-	'W',
-	'E',
-	'R',
-	'T',
-	'Y',
-	'U',
-	'I',
-	'O',
-	'P',
-	'A',
-	'S',
-	'D',
-	'F',
-	'G',
-	'H',
-	'J',
-	'K',
-	'L',
-	'BACKSPACE',
-	'Z',
-	'X',
-	'C',
-	'V',
-	'B',
-	'N',
-	'M',
-	'ENTER',
-]
+import { useKey } from 'hooks/Keys'
 
 function Home() {
-	const [pressedKey, setPressedKey] = useState()
-
-	const handleKeyDown = useCallback(event => {
-		if (event.key === 'Tab') {
-			return event.preventDefault()
-		}
-
-		if (event.shiftKey || event.ctrlKey) {
-			return
-		}
-
-		const keyExists = availableKeys.find(key => key === event.key.toUpperCase())
-		if (keyExists) {
-			setPressedKey(state =>
-				state === event.key.toUpperCase()
-					? `REPEAT_${event.key.toUpperCase()}`
-					: event.key.toUpperCase(),
-			)
-		}
-	}, [])
-
-	useEffect(() => {
-		const eventListener = event => handleKeyDown(event)
-		window.addEventListener('keydown', eventListener)
-		return () => {
-			window.removeEventListener('keydown', eventListener)
-		}
-	}, [handleKeyDown])
+	const { handleKeyDown, pressedKey } = useKey()
 
 	return (
 		<>

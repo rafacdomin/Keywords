@@ -69,7 +69,7 @@ export const KeyLine = styled.section`
 `
 
 export const Space = styled.div`
-	margin-left: 0.8rem;
+	margin-left: 0rem;
 
 	@media (min-width: 768px) {
 		margin-left: 3.2rem;

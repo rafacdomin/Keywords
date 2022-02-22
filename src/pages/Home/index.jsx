@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Keyboard } from 'components/Keyboard'
 import { Words } from 'components/Words'
+import { Header } from 'components/Header'
 import { Main } from './styles'
 
 const availableKeys = [
@@ -66,7 +67,7 @@ function Home() {
 
 	return (
 		<>
-			<header></header>
+			<Header />
 
 			<Main>
 				<section className="notification"></section>

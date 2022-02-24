@@ -24,7 +24,6 @@ export const Words = ({ pressedKey }) => {
 		let randomIdx = seedrandom(today)()
 
 		localStorage.setItem('@Keywords:Date', JSON.stringify(today))
-		console.log(keywords[Math.floor(randomIdx * keywords.length)])
 		return keywords[Math.floor(randomIdx * keywords.length)]
 	})
 	const [results, setResults] = useState([])
@@ -73,12 +72,14 @@ export const Words = ({ pressedKey }) => {
 		const today = new Date().toLocaleDateString('pt-br')
 		const storagedLastDate = localStorage.getItem('@Keywords:Date')
 
-		if (storagedLastDate) {
-			const lastDate = JSON.parse(storagedLastDate)
+		if (!storagedLastDate) {
+			return deleteData()
+		}
 
-			if (lastDate !== today) {
-				return deleteData()
-			}
+		const lastDate = JSON.parse(storagedLastDate)
+
+		if (lastDate !== today) {
+			return deleteData()
 		}
 
 		return restoreData()

@@ -3,7 +3,8 @@ import seedrandom from 'seedrandom'
 import PropTypes from 'prop-types'
 import { Container, Letter } from './styles'
 import { useLetter } from 'hooks/Letters'
-import availableWords from './words.json'
+import keywords from 'assets/keywords.json'
+import validWords from 'assets/validWords.json'
 
 export const Words = ({ pressedKey }) => {
 	const {
@@ -14,6 +15,7 @@ export const Words = ({ pressedKey }) => {
 		restoreLetters,
 		deleteLetters,
 	} = useLetter()
+
 	const [wordCount, setWordCount] = useState(0)
 	const [letterCount, setLetterCount] = useState(0)
 	const [win, setWin] = useState(false)
@@ -22,7 +24,8 @@ export const Words = ({ pressedKey }) => {
 		let randomIdx = seedrandom(today)()
 
 		localStorage.setItem('@Keywords:Date', JSON.stringify(today))
-		return availableWords[Math.floor(randomIdx * availableWords.length)]
+		console.log(keywords[Math.floor(randomIdx * keywords.length)])
+		return keywords[Math.floor(randomIdx * keywords.length)]
 	})
 	const [results, setResults] = useState([])
 	const [words, setWords] = useState([
@@ -148,11 +151,24 @@ export const Words = ({ pressedKey }) => {
 	}, [letterCount, wordCount])
 
 	const handleEnter = useCallback(() => {
+		const newWord = words[wordCount].join([])
+
 		if (letterCount < 5) {
 			return
 		}
 
-		testWord(words[wordCount].join([]))
+		if (
+			!validWords.find(
+				word =>
+					newWord.localeCompare(word, 'pt-br', {
+						sensitivity: 'base',
+					}) === 0,
+			)
+		) {
+			return
+		}
+
+		testWord(newWord)
 		setLetterCount(0)
 		setWordCount(state => {
 			state += 1

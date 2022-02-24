@@ -1,10 +1,4 @@
-import React, {
-	createContext,
-	useState,
-	useContext,
-	useCallback,
-	useEffect,
-} from 'react'
+import React, { createContext, useState, useContext, useCallback } from 'react'
 import PropTypes from 'prop-types'
 
 const LetterContext = createContext({})
@@ -14,7 +8,7 @@ export const LetterProvider = ({ children }) => {
 	const [correctLetters, setCorrect] = useState([])
 	const [presentLetters, setPresent] = useState([])
 
-	useEffect(() => {
+	const restoreLetters = useCallback(() => {
 		const storagedWrongLetters = localStorage.getItem('@Keywords:WrongLetters')
 		const storagedCorrectLetters = localStorage.getItem(
 			'@Keywords:CorrectLetters',
@@ -34,6 +28,12 @@ export const LetterProvider = ({ children }) => {
 		if (storagedPresentLetters) {
 			setPresent(JSON.parse(storagedPresentLetters))
 		}
+	}, [])
+
+	const deleteLetters = useCallback(() => {
+		localStorage.removeItem('@Keywords:WrongLetters')
+		localStorage.removeItem('@Keywords:CorrectLetters')
+		localStorage.removeItem('@Keywords:PresentLetters')
 	}, [])
 
 	const updateWrong = useCallback(letter => {
@@ -69,6 +69,8 @@ export const LetterProvider = ({ children }) => {
 				updateCorrect,
 				presentLetters,
 				updatePresent,
+				restoreLetters,
+				deleteLetters,
 			}}>
 			{children}
 		</LetterContext.Provider>

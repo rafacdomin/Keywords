@@ -1,14 +1,29 @@
-import PropTypes from 'prop-types'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import seedrandom from 'seedrandom'
+import PropTypes from 'prop-types'
 import { Container, Letter } from './styles'
 import { useLetter } from 'hooks/Letters'
+import availableWords from './words.json'
 
 export const Words = ({ pressedKey }) => {
-	const { wrongLetters, updateWrong, updateCorrect, updatePresent } =
-		useLetter()
-	const [dailyWord] = useState('arara')
+	const {
+		wrongLetters,
+		updateWrong,
+		updateCorrect,
+		updatePresent,
+		restoreLetters,
+		deleteLetters,
+	} = useLetter()
 	const [wordCount, setWordCount] = useState(0)
 	const [letterCount, setLetterCount] = useState(0)
+	const [win, setWin] = useState(false)
+	const [dailyWord] = useState(() => {
+		const today = new Date().toLocaleDateString('pt-br')
+		let randomIdx = seedrandom(today)()
+
+		localStorage.setItem('@Keywords:Date', JSON.stringify(today))
+		return availableWords[Math.floor(randomIdx * availableWords.length)]
+	})
 	const [results, setResults] = useState([])
 	const [words, setWords] = useState([
 		['', '', '', '', ''],
@@ -19,10 +34,12 @@ export const Words = ({ pressedKey }) => {
 		['', '', '', '', ''],
 	])
 
-	useEffect(() => {
+	const restoreData = useCallback(() => {
+		restoreLetters()
 		const storagedWords = localStorage.getItem('@Keywords:Words')
 		const storagedResults = localStorage.getItem('@Keywords:Results')
 		const storagedWordCount = localStorage.getItem('@Keywords:WordCount')
+		const storagedWinStatus = localStorage.getItem('@Keywords:WinStatus')
 
 		if (storagedWords) {
 			setWords(JSON.parse(storagedWords))
@@ -35,7 +52,34 @@ export const Words = ({ pressedKey }) => {
 		if (storagedWordCount) {
 			setWordCount(JSON.parse(storagedWordCount))
 		}
-	}, [])
+
+		if (storagedWinStatus) {
+			setWin(JSON.parse(storagedWinStatus))
+		}
+	}, [restoreLetters])
+
+	const deleteData = useCallback(() => {
+		deleteLetters()
+		localStorage.removeItem('@Keywords:Words')
+		localStorage.removeItem('@Keywords:Results')
+		localStorage.removeItem('@Keywords:WordCount')
+		localStorage.removeItem('@Keywords:WinStatus')
+	}, [deleteLetters])
+
+	useEffect(() => {
+		const today = new Date().toLocaleDateString('pt-br')
+		const storagedLastDate = localStorage.getItem('@Keywords:Date')
+
+		if (storagedLastDate) {
+			const lastDate = JSON.parse(storagedLastDate)
+
+			if (lastDate !== today) {
+				return deleteData()
+			}
+		}
+
+		return restoreData()
+	}, [restoreData, deleteData])
 
 	const testWord = useCallback(
 		word => {
@@ -71,6 +115,8 @@ export const Words = ({ pressedKey }) => {
 				})
 			) {
 				console.log('You Win')
+				setWin(true)
+				localStorage.setItem('@Keywords:WinStatus', JSON.stringify(true))
 			}
 		},
 		[dailyWord, wordCount],
@@ -117,7 +163,7 @@ export const Words = ({ pressedKey }) => {
 	}, [letterCount, wordCount, words])
 
 	useEffect(() => {
-		if (pressedKey) {
+		if (pressedKey && !win) {
 			const key = pressedKey.includes('REPEAT')
 				? pressedKey.split('_')[1]
 				: pressedKey
@@ -133,7 +179,7 @@ export const Words = ({ pressedKey }) => {
 					handleAddLetter(key)
 			}
 		}
-	}, [pressedKey])
+	}, [pressedKey, win])
 
 	const letterProps = useMemo(() => {
 		return words.map((word, idx) => {

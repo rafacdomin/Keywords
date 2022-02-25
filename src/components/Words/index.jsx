@@ -70,6 +70,7 @@ export const Words = ({ pressedKey }) => {
 	useEffect(() => {
 		const today = new Date().toLocaleDateString('pt-br')
 		const storagedLastDate = localStorage.getItem('@Keywords:Date')
+		localStorage.setItem('@Keywords:Date', JSON.stringify(today))
 
 		if (!storagedLastDate) {
 			return deleteData()
@@ -78,7 +79,6 @@ export const Words = ({ pressedKey }) => {
 		const lastDate = JSON.parse(storagedLastDate)
 
 		if (lastDate !== today) {
-			localStorage.setItem('@Keywords:Date', JSON.stringify(today))
 			return deleteData()
 		}
 

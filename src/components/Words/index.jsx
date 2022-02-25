@@ -97,7 +97,9 @@ export const Words = ({ pressedKey }) => {
 					dailyLetters[i] = null
 					updateCorrect(letters[i])
 				} else if (dailyLetters.includes(letters[i])) {
+					const idx = dailyLetters.findIndex(letter => letter === letters[i])
 					result[i] = 'present'
+					dailyLetters[idx] = null
 					updatePresent(letters[i])
 				} else {
 					result[i] = 'wrong'

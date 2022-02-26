@@ -5,6 +5,7 @@ import { Container, Letter } from './styles'
 import { useLetter } from 'hooks/Letters'
 import keywords from 'assets/keywords.json'
 import validWords from 'assets/validWords.json'
+import { WinModal } from 'components/WinModal'
 
 export const Words = ({ pressedKey }) => {
 	const {
@@ -16,6 +17,7 @@ export const Words = ({ pressedKey }) => {
 		deleteLetters,
 	} = useLetter()
 
+	const [openWin, setOpenWin] = useState(false)
 	const [wordCount, setWordCount] = useState(0)
 	const [letterCount, setLetterCount] = useState(0)
 	const [win, setWin] = useState(false)
@@ -56,6 +58,10 @@ export const Words = ({ pressedKey }) => {
 
 		if (storagedWinStatus) {
 			setWin(JSON.parse(storagedWinStatus))
+
+			if (JSON.parse(storagedWinStatus)) {
+				setTimeout(() => setOpenWin(true), 1000)
+			}
 		}
 	}, [restoreLetters])
 
@@ -122,6 +128,7 @@ export const Words = ({ pressedKey }) => {
 			) {
 				console.log('You Win')
 				setWin(true)
+				setTimeout(() => setOpenWin(true), 1000)
 				localStorage.setItem('@Keywords:WinStatus', JSON.stringify(true))
 			}
 		},
@@ -225,6 +232,10 @@ export const Words = ({ pressedKey }) => {
 					)
 				})
 			})}
+			<WinModal
+				isOpen={openWin}
+				controlModal={() => setOpenWin(state => !state)}
+			/>
 		</Container>
 	)
 }
